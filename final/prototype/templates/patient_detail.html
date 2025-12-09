@@ -3,338 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Details</title>
+    <title>Patient Details - Patient Monitoring</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f7fa;
-            color: #333;
+            background: #f5f5f5;
         }
-        
-        header {
-            background: #2c3e50;
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 20px;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        
-        header a {
-            color: #3498db;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        
-        header a:hover {
-            text-decoration: underline;
-        }
-        
         .container {
             max-width: 1200px;
-            margin: 20px auto;
+            margin: 30px auto;
             padding: 0 20px;
         }
-        
-        .patient-header {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
+        .back-link {
+            color: #667eea;
+            text-decoration: none;
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
         }
-        
-        .patient-header h1 {
-            font-size: 28px;
-            margin-bottom: 15px;
-        }
-        
-        .patient-info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .info-item {
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 5px;
-        }
-        
-        .info-label {
-            color: #7f8c8d;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-        
-        .info-value {
-            font-size: 16px;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-        
-        .risk-section {
+        .header {
             background: white;
             padding: 20px;
             border-radius: 8px;
-            border-left: 4px solid #3498db;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .patient-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
             margin-bottom: 20px;
         }
-        
-        .risk-high .risk-section {
-            border-left-color: #e74c3c;
-            background: #fadbd8;
+        .info-box {
+            background: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
         }
-        
-        .risk-medium .risk-section {
-            border-left-color: #f39c12;
-            background: #fdebd0;
+        .info-label {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 12px;
+            text-transform: uppercase;
         }
-        
-        .risk-low .risk-section {
-            border-left-color: #27ae60;
-            background: #d5f4e6;
+        .info-value {
+            font-size: 16px;
+            color: #333;
+            margin-top: 5px;
         }
-        
         .section {
             background: white;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        
-        .section h2 {
-            font-size: 20px;
+        .section h3 {
+            color: #333;
             margin-bottom: 15px;
-            color: #2c3e50;
-            border-bottom: 2px solid #ecf0f1;
+            border-bottom: 2px solid #667eea;
             padding-bottom: 10px;
         }
-        
-        .vitals-table, .symptoms-list {
+        .vitals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .vital-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .vital-label { font-size: 12px; opacity: 0.9; }
+        .vital-value { font-size: 24px; font-weight: 700; margin-top: 5px; }
+        .alerts {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .alert-item {
+            padding: 5px 0;
+            color: #856404;
+        }
+        table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 10px;
         }
-        
-        .vitals-table th,
-        .vitals-table td {
-            padding: 12px;
+        th, td {
+            padding: 10px;
             text-align: left;
-            border-bottom: 1px solid #ecf0f1;
+            border-bottom: 1px solid #ddd;
         }
-        
-        .vitals-table th {
-            background: #ecf0f1;
+        th {
+            background: #f5f5f5;
             font-weight: 600;
-            color: #2c3e50;
-        }
-        
-        .vitals-table tr:hover {
-            background: #f8f9fa;
-        }
-        
-        .symptom-item {
-            padding: 12px;
-            border-bottom: 1px solid #ecf0f1;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .symptom-item:last-child {
-            border-bottom: none;
-        }
-        
-        .symptom-text {
-            flex: 1;
-        }
-        
-        .severity-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            background: #ecf0f1;
-            color: #2c3e50;
-        }
-        
-        .severity-badge.high {
-            background: #fadbd8;
-            color: #c0392b;
-        }
-        
-        .severity-badge.medium {
-            background: #fdebd0;
-            color: #d68910;
-        }
-        
-        .severity-badge.low {
-            background: #d5f4e6;
-            color: #196f3d;
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 30px;
-            color: #7f8c8d;
-        }
-        
-        .btn {
-            background: #3498db;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            font-weight: 600;
-            margin-right: 10px;
-        }
-        
-        .btn:hover {
-            background: #2980b9;
-        }
-        
-        .btn-danger {
-            background: #e74c3c;
-        }
-        
-        .btn-danger:hover {
-            background: #c0392b;
         }
     </style>
 </head>
 <body>
-    <header>
-        <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
-    </header>
-    
+    <div class="navbar">
+        <h1>🏥 Patient Details</h1>
+        <a href="/dashboard" style="color: white; text-decoration: none;">← Back to Dashboard</a>
+    </div>
+
     <div class="container">
-        <div class="patient-header risk-{{ risk_level|lower }}">
-            <h1>{{ patient.first_name }} {{ patient.last_name }}</h1>
+        <div class="header">
+            <h2>{{ patient.first_name }} {{ patient.last_name }}</h2>
             
-            <div class="risk-section">
-                <h3>Current Risk Assessment</h3>
-                <div style="margin-top: 10px;">
-                    <span style="font-size: 24px; font-weight: 700; color: {% if risk_level == 'HIGH' %}#c0392b{% elif risk_level == 'MEDIUM' %}#d68910{% else %}#196f3d{% endif %}">
-                        {{ risk_level }}
-                    </span>
-                    <span style="margin-left: 20px; color: #555;">
-                        Risk Score: <strong>{{ risk_score }}/1.0</strong>
-                    </span>
-                </div>
-            </div>
-            
-            <div class="patient-info-grid">
-                <div class="info-item">
+            <div class="patient-info">
+                <div class="info-box">
                     <div class="info-label">Date of Birth</div>
-                    <div class="info-value">{{ patient.dob }}</div>
+                    <div class="info-value">{{ patient.date_of_birth }}</div>
                 </div>
-                <div class="info-item">
-                    <div class="info-label">Phone</div>
-                    <div class="info-value">{{ patient.phone or 'Not provided' }}</div>
-                </div>
-                <div class="info-item">
+                <div class="info-box">
                     <div class="info-label">Email</div>
-                    <div class="info-value">{{ patient.email or 'Not provided' }}</div>
+                    <div class="info-value">{{ patient.email }}</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Phone</div>
+                    <div class="info-value">{{ patient.phone or 'N/A' }}</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Medical History</div>
+                    <div class="info-value">{{ patient.medical_history or 'None' }}</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Current Medications</div>
+                    <div class="info-value">{{ patient.current_medications or 'None' }}</div>
                 </div>
             </div>
-            
-            {% if patient.medical_history %}
-            <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px;">
-                <strong>Medical History:</strong>
-                <p style="margin-top: 10px; color: #555;">{{ patient.medical_history }}</p>
-            </div>
-            {% endif %}
         </div>
-        
-        <!-- Recent Vitals -->
+
         <div class="section">
-            <h2>Recent Vital Signs</h2>
-            {% if vitals %}
-            <table class="vitals-table">
-                <thead>
+            <h3>Recent Vital Signs</h3>
+            {% if recent_vitals %}
+                <div class="vitals-grid">
+                    {% set latest = recent_vitals[0] %}
+                    {% if latest.systolic_bp %}
+                    <div class="vital-card">
+                        <div class="vital-label">Blood Pressure</div>
+                        <div class="vital-value">{{ latest.systolic_bp }}/{{ latest.diastolic_bp }}</div>
+                    </div>
+                    {% endif %}
+                    {% if latest.heart_rate %}
+                    <div class="vital-card">
+                        <div class="vital-label">Heart Rate</div>
+                        <div class="vital-value">{{ latest.heart_rate }} <span style="font-size: 14px;">BPM</span></div>
+                    </div>
+                    {% endif %}
+                    {% if latest.temperature %}
+                    <div class="vital-card">
+                        <div class="vital-label">Temperature</div>
+                        <div class="vital-value">{{ latest.temperature }}<span style="font-size: 14px;">°C</span></div>
+                    </div>
+                    {% endif %}
+                    {% if latest.oxygen_saturation %}
+                    <div class="vital-card">
+                        <div class="vital-label">O₂ Saturation</div>
+                        <div class="vital-value">{{ latest.oxygen_saturation }}<span style="font-size: 14px;">%</span></div>
+                    </div>
+                    {% endif %}
+                    {% if latest.blood_glucose %}
+                    <div class="vital-card">
+                        <div class="vital-label">Blood Glucose</div>
+                        <div class="vital-value">{{ latest.blood_glucose }}</div>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <h4 style="margin-top: 20px; margin-bottom: 10px;">Vital Signs History</h4>
+                <table>
                     <tr>
-                        <th>Date/Time</th>
-                        <th>Heart Rate</th>
-                        <th>Blood Pressure</th>
-                        <th>O2 Sat</th>
-                        <th>Temperature</th>
-                        <th>Weight</th>
+                        <th>Date</th>
+                        <th>BP (Sys/Dia)</th>
+                        <th>HR (BPM)</th>
+                        <th>Temp (°C)</th>
+                        <th>O₂ Sat (%)</th>
+                        <th>Glucose (mg/dL)</th>
                     </tr>
-                </thead>
-                <tbody>
-                    {% for vital in vitals %}
+                    {% for vital in recent_vitals %}
                     <tr>
-                        <td>{{ vital.recorded_at[:16] }}</td>
-                        <td>{{ vital.heart_rate or '—' }} bpm</td>
-                        <td>
-                            {% if vital.systolic_bp %}
-                                {{ vital.systolic_bp }}/{{ vital.diastolic_bp }} mmHg
-                            {% else %}
-                                —
-                            {% endif %}
-                        </td>
-                        <td>{{ vital.oxygen_sat or '—' }}%</td>
-                        <td>{{ vital.temperature or '—' }}°C</td>
-                        <td>{{ vital.weight or '—' }} kg</td>
+                        <td>{{ vital.measurement_date[:10] }}</td>
+                        <td>{{ vital.systolic_bp or '-' }}/{{ vital.diastolic_bp or '-' }}</td>
+                        <td>{{ vital.heart_rate or '-' }}</td>
+                        <td>{{ vital.temperature or '-' }}</td>
+                        <td>{{ vital.oxygen_saturation or '-' }}</td>
+                        <td>{{ vital.blood_glucose or '-' }}</td>
                     </tr>
                     {% endfor %}
-                </tbody>
-            </table>
+                </table>
             {% else %}
-            <div class="empty-state">
-                No vital signs recorded yet. Upload a CSV file to get started.
-            </div>
+                <p>No vital signs recorded yet.</p>
             {% endif %}
         </div>
-        
-        <!-- Recent Symptoms -->
+
         <div class="section">
-            <h2>Recent Symptoms</h2>
-            {% if symptoms %}
-            <div class="symptoms-list">
-                {% for symptom in symptoms %}
-                <div class="symptom-item">
-                    <div class="symptom-text">
-                        <strong>{{ symptom.symptom_text }}</strong>
-                        <div style="color: #7f8c8d; font-size: 12px; margin-top: 5px;">
-                            {{ symptom.reported_at[:16] }}
-                        </div>
+            <h3>Encounters</h3>
+            {% if encounters %}
+                {% for encounter in encounters %}
+                <div class="info-box" style="margin-bottom: 15px; border-left-color: #4caf50;">
+                    <div class="info-label">{{ encounter.encounter_date[:10] }} - {{ encounter.clinician_name or 'Unknown' }}</div>
+                    <div class="info-value">
+                        <strong>Chief Complaint:</strong> {{ encounter.chief_complaint or 'N/A' }}<br>
+                        <strong>Assessment:</strong> {{ encounter.assessment or 'N/A' }}<br>
+                        <strong>Plan:</strong> {{ encounter.plan or 'N/A' }}
                     </div>
-                    <span class="severity-badge {% if symptom.severity >= 8 %}high{% elif symptom.severity >= 5 %}medium{% else %}low{% endif %}">
-                        Severity: {{ symptom.severity }}/10
-                    </span>
                 </div>
                 {% endfor %}
-            </div>
             {% else %}
-            <div class="empty-state">
-                No symptoms reported yet.
-            </div>
+                <p>No encounters recorded yet.</p>
             {% endif %}
         </div>
-        
-        <!-- Assessment Notes -->
-        {% if assessment %}
-        <div class="section">
-            <h2>Latest Assessment</h2>
-            <p><strong>Date:</strong> {{ assessment.created_at[:16] }}</p>
-            {% if assessment.notes %}
-            <p style="margin-top: 10px;"><strong>Notes:</strong></p>
-            <p>{{ assessment.notes }}</p>
-            {% endif %}
-        </div>
-        {% endif %}
     </div>
 </body>
 </html>
