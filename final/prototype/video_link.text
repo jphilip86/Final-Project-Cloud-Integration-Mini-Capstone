@@ -1,1 +1,9 @@
+Project Video with Screenshot
+
+Description: This working prototype demonstrates a Flask-
+based web application for patient blood pressure monitoring, 
+built with Python and Claude assistance. 
+The application features a patient dashboard displaying 
+blood pressure readings and functionality to add new patients.
+
 [https://youtu.be/d7lgZ2HN-aA](https://youtu.be/d7lgZ2HN-aA)

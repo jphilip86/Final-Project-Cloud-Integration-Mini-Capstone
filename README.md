@@ -54,7 +54,13 @@ Addresses all requirements:
 
 ---
 
-## Optional Deliverables (Part 2: Prototype Track - EXTRA CREDIT)
+## Optional (Part 2: Prototype Track)
+# Youtube Video recording
+
+[Python/Flask Implementation (YouTube Video)](https://youtu.be/d7lgZ2HN-aA)
+
+[![Python/Flask Implementation](final\prototype/screenshots/Screenshot%202025-12-09%20093549.png)](https://youtu.be/78j4WsGiqzI)
+ 
 
 ### Working Python/Flask Application
 
