@@ -77,24 +77,37 @@ Includes:
 ## File Structure
 
 ```
-504 Final/
+Final-Project-Cloud-Integration-Mini-Capstone/
 ├── README.md (this file)
-├── about.md (original assignment)
-├── use_case.md (REQUIRED)
-├── architecture_plan.md (REQUIRED)
-├── architecture_diagram.md (REQUIRED)
-├── reflection.md (REQUIRED)
-├── architecture_diagram2.md (BONUS: enterprise design)
-├── architecture_plan2.md (BONUS: production guide)
-└── prototype/ (OPTIONAL EXTRA CREDIT)
-    ├── app.py
-    ├── requirements.txt
-    ├── README.md
-    └── templates/
-        ├── index.html
-        ├── dashboard.html
-        ├── patient_detail.html
-        └── new_patient.html
+├── requirements.txt (project dependencies)
+├── .git/ (version control)
+├── .gitignore
+├── .venv/ (Python virtual environment)
+├── patient_monitoring.db (SQLite database)
+├── final/
+│   ├── about.md (original assignment)
+│   ├── use_case.md (REQUIRED)
+│   ├── architecture_plan.md (REQUIRED)
+│   ├── architecture_diagram.md (REQUIRED)
+│   ├── reflection.md (REQUIRED)
+│   ├── PROJECT_SUMMARY.md
+│   ├── examples/
+│   └── prototype/ (OPTIONAL EXTRA CREDIT)
+│       ├── app.py (Flask application)
+│       ├── requirements.txt (Flask dependencies)
+│       ├── README.md (setup instructions)
+│       ├── video_link.text (demo video link)
+│       ├── templates/
+│       │   ├── index.html
+│       │   ├── dashboard.html
+│       │   ├── patient_detail.html
+│       │   └── new_patient.html
+│       └── screenshots/ (application screenshots)
+│           ├── Screenshot 2025-12-09 093347.png
+│           ├── Screenshot 2025-12-09 093532.png
+│           ├── Screenshot 2025-12-09 093549.png
+│           └── Screenshot 2025-12-09 093610.png
+└── uploads/ (user uploads directory)
 ```
 
 ---
