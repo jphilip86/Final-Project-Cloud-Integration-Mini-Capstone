@@ -10,15 +10,17 @@ This final project successfully designed and prototyped a scalable, cloud-integr
 
 ### What I Feel Most Confident About
 
-#### ✅ Architecture Design & Service Mapping
+#### Architecture Design & Service Mapping
+
 - **Confidence Level:** Very High (95%)
 - **Why:** The use of Cloud SQL, Cloud Storage, and Cloud Run directly maps to prior course assignments and represents realistic production patterns
-- **Evidence:** 
+- **Evidence:**
   - Clear service selection rationale in architecture plan
   - Each service maps to specific course modules (Assignment 4 → Managed Services, Module 6 → Storage, etc.)
   - Scalable design that can grow from MVP to production without major restructuring
 
-#### ✅ Flask Web Application & Data Model
+#### Flask Web Application & Data Model
+
 - **Confidence Level:** High (90%)
 - **Why:** Built on solid foundations from Assignment 2 and expanded with realistic healthcare data structures
 - **Evidence:**
@@ -27,7 +29,8 @@ This final project successfully designed and prototyped a scalable, cloud-integr
   - Responsive HTML templates with intuitive UX
   - RESTful API endpoints following REST conventions
 
-#### ✅ Risk Scoring Algorithm
+#### Risk Scoring Algorithm
+
 - **Confidence Level:** High (85%)
 - **Why:** Evidence-based approach using common clinical vital sign thresholds
 - **Evidence:**
@@ -35,7 +38,8 @@ This final project successfully designed and prototyped a scalable, cloud-integr
   - Combines multiple data sources (vitals + symptoms) for holistic assessment
   - Extensible design can integrate ML models (Vertex AI) in production
 
-#### ✅ Security Best Practices
+#### Security Best Practices
+
 - **Confidence Level:** High (85%)
 - **Why:** Implemented credential separation, environment variable management, and role-based access
 - **Evidence:**
@@ -46,7 +50,8 @@ This final project successfully designed and prototyped a scalable, cloud-integr
 
 ### What I Feel Least Confident About
 
-#### ⚠️ Production-Ready Database Security
+#### Production-Ready Database Security
+
 - **Confidence Level:** Moderate (60%)
 - **Why:** While architecture is sound, actual implementation of Cloud SQL IAM and encryption requires GCP account
 - **Concerns:**
@@ -55,19 +60,21 @@ This final project successfully designed and prototyped a scalable, cloud-integr
   - Service account role assignments documented but not tested in GCP
 - **Mitigation:** Clear instructions provided in architecture_plan.md for production deployment
 
-#### ⚠️ ML/Vertex AI Integration
+#### ML/Vertex AI Integration
+
 - **Confidence Level:** Moderate (65%)
 - **Why:** Risk scoring algorithm is rule-based; actual ML model integration not implemented
 - **Concerns:**
   - Prototype uses simple heuristics instead of trained ML model
   - Vertex AI API calls would require GCP authentication and would incur costs
   - Model performance/accuracy not validated
-- **Mitigation:** 
+- **Mitigation:**
   - Included architecture for Vertex AI integration in plan
   - Designed code to be easily extended with real ML calls
   - Provided placeholder for future model integration
 
-#### ⚠️ Wearable Device Integration
+#### Wearable Device Integration
+
 - **Confidence Level:** Moderate (70%)
 - **Why:** Prototype accepts CSV uploads but doesn't connect to actual device APIs
 - **Concerns:**
@@ -79,7 +86,8 @@ This final project successfully designed and prototyped a scalable, cloud-integr
   - Architecture supports future device API integration
   - Module 5 serverless patterns could handle async device webhooks
 
-#### ⚠️ HIPAA Compliance Implementation
+#### HIPAA Compliance Implementation
+
 - **Confidence Level:** Low (40%)
 - **Why:** Prototype does not implement full HIPAA controls
 - **Concerns:**
@@ -99,6 +107,7 @@ This final project successfully designed and prototyped a scalable, cloud-integr
 ## Part 2: Alternative Architectures Considered
 
 ### Architecture Option A: Serverless-First (NOT CHOSEN)
+
 ```
 Patient Mobile App → Cloud Functions → Pub/Sub → BigQuery
                  ↓ (via API Gateway)
@@ -106,6 +115,7 @@ Patient Mobile App → Cloud Functions → Pub/Sub → BigQuery
 ```
 
 **Why Not Chosen:**
+
 - Added complexity with event-driven architecture
 - Cloud Functions overkill for simple CRUD operations
 - Pub/Sub messaging unnecessary for synchronous patient lookups
@@ -113,11 +123,13 @@ Patient Mobile App → Cloud Functions → Pub/Sub → BigQuery
 - Would be better for high-frequency wearable data (100k+ events/min), not clinic data
 
 **When This Would Be Better:**
+
 - If processing 1M+ vital sign readings per day from IoT devices
 - Real-time alerting for anomaly detection
 - Multiple independent systems subscribing to patient events
 
 ### Architecture Option B: Containerized Multi-Service (NOT CHOSEN)
+
 ```
 Flask API → PostgreSQL
 ↓
@@ -127,6 +139,7 @@ Separate Analytics Container (Docker)
 ```
 
 **Why Not Chosen:**
+
 - Overkill for prototype; over-engineers early-stage system
 - Operational complexity (Docker Compose, container orchestration)
 - Each container needs its own resource allocation
@@ -134,11 +147,13 @@ Separate Analytics Container (Docker)
 - Makes local development harder (3+ containers to manage)
 
 **When This Would Be Better:**
+
 - Large enterprise deployment with dedicated DevOps team
 - Multiple independent services (API, ML, Analytics, Admin Portal)
 - Need for independent scaling of ML pipelines
 
 ### Architecture Option C: Monolithic Deployment (CHOSEN - FOR PROTOTYPE)
+
 ```
 Single Flask App
 ├── Patient Management
@@ -153,13 +168,15 @@ Cloud Run OR Local Flask
 ```
 
 **Why Chosen:**
-- ✅ Simplicity for prototype phase
-- ✅ Easier to test locally
-- ✅ Single codebase to maintain
-- ✅ Sufficient for MVP patient volumes
-- ✅ Natural progression path to microservices if needed later
+
+-  Simplicity for prototype phase
+- Easier to test locally
+- Single codebase to maintain
+- Sufficient for MVP patient volumes
+- Natural progression path to microservices if needed later
 
 **Production Scaling Path:**
+
 - Phase 1 (Current): Monolithic Flask on Cloud Run
 - Phase 2 (Year 1): Extract ML scoring to Cloud Functions
 - Phase 3 (Year 2): Move analytics to separate Vertex AI pipeline
@@ -170,12 +187,15 @@ Cloud Run OR Local Flask
 ## Part 3: Not Chosen & Why
 
 ### Option D: AWS/Azure Instead of GCP (NOT CHOSEN)
+
 **Reason:** Course focuses on GCP services; AWS/Azure would add unmapped complexity
 
 ### Option E: Real-Time Dashboard with WebSockets (NOT CHOSEN)
+
 **Reason:** Synchronous HTTP sufficient for clinic workflow; real-time not critical for triage (not ER setting)
 
 ### Option F: Mobile App Frontend (NOT CHOSEN)
+
 **Reason:** Web app sufficient for MVP; mobile adds platform diversity; can be added as Phase 2
 
 ---
@@ -185,6 +205,7 @@ Cloud Run OR Local Flask
 ### Phase 2 (4 Weeks) - Core Production Features
 
 **1. Real-Time Wearable Integration**
+
 - Apple HealthKit API integration (health_check endpoint)
 - Fitbit OAuth integration
 - Garmin ConnectIQ support
@@ -193,6 +214,7 @@ Cloud Run OR Local Flask
 - **Cost:** ~$200/month (infrastructure)
 
 **2. Advanced ML Risk Scoring**
+
 - Train custom Vertex AI model on clinic's historical triage data
 - A/B test rule-based vs. ML-based scoring
 - Track accuracy metrics (sensitivity, specificity, AUC)
@@ -201,6 +223,7 @@ Cloud Run OR Local Flask
 - **Cost:** ~$500/month (model serving)
 
 **3. HIPAA Audit Logging**
+
 - Cloud SQL activity logging
 - Cloud Storage access logs
 - Admin Activity Audit Logs
@@ -212,6 +235,7 @@ Cloud Run OR Local Flask
 ### Phase 3 (4 Weeks) - Scalability & Intelligence
 
 **4. EHR System Integration**
+
 - HL7 FHIR API connectors to Epic, Cerner, Athenahealth
 - Bidirectional patient data sync
 - Provider directory integration
@@ -220,6 +244,7 @@ Cloud Run OR Local Flask
 - **Cost:** ~$400/month
 
 **5. Population Health Analytics**
+
 - BigQuery dashboards for outcome tracking
 - Patient cohort analysis
 - Outcome metrics by risk group
@@ -228,6 +253,7 @@ Cloud Run OR Local Flask
 - **Cost:** ~$150/month
 
 **6. Telemedicine Integration**
+
 - Google Meet API for consultations
 - Twilio SMS for appointment reminders
 - Video recording to Cloud Storage
@@ -238,6 +264,7 @@ Cloud Run OR Local Flask
 ### Phase 4 (4-8 Weeks) - Enterprise & Governance
 
 **7. Multi-Tenant Support**
+
 - Organization/clinic isolation
 - Custom branding per tenant
 - Separate databases vs. shared with row-level security
@@ -246,6 +273,7 @@ Cloud Run OR Local Flask
 - **Cost:** ~$500/month (per tenant)
 
 **8. Advanced Compliance**
+
 - HIPAA Business Associate Agreement (BAA) verification
 - GDPR data right-of-deletion automation
 - Encryption key rotation policies
@@ -255,6 +283,7 @@ Cloud Run OR Local Flask
 - **Cost:** ~$200/month
 
 **9. Advanced Data Privacy**
+
 - Federated Learning for ML (train without moving PHI)
 - Zero-knowledge proof for remote clinician auth
 - Homomorphic encryption for sensitive calculations
@@ -263,6 +292,7 @@ Cloud Run OR Local Flask
 - **Cost:** ~$400/month
 
 **10. Mobile App (iOS/Android)**
+
 - Native iOS app with HealthKit integration
 - Android app with Google Fit integration
 - Offline-first sync
@@ -275,21 +305,22 @@ Cloud Run OR Local Flask
 
 ## Part 5: Technology Decisions Rationale
 
-| Decision | Choice | Rationale | Alternative | Why Not |
-|----------|--------|-----------|-------------|---------|
-| **Web Framework** | Flask | Lightweight, Python-native, easy to learn | Django | Overkill for this scale; more boilerplate |
-| **Database** | SQLite (dev) / Cloud SQL (prod) | Managed service reduces ops burden | Self-managed PostgreSQL | GCP integration, automated backups, IAM |
-| **Frontend** | HTML/CSS/Vanilla JS | Simple, no build step required | React/Vue | Adds complexity for CRUD operations |
-| **Risk Algorithm** | Rule-based heuristic | Interpretable, clinical thresholds validated | ML-first | Can't train without real data; rules are starting point |
-| **Auth** | Session-based | Simple for MVP; sufficient for clinic size | OAuth2/OIDC | Would add complexity without immediate benefit |
-| **Deployment** | Cloud Run | Serverless, managed, cost-effective | Compute Engine VM | More operational overhead |
-| **Storage** | Cloud Storage + SQL | Separation of concerns (files vs. relational) | Just Cloud SQL | Better scalability; cheaper for large files |
+| Decision                 | Choice                          | Rationale                                     | Alternative             | Why Not                                                 |
+| ------------------------ | ------------------------------- | --------------------------------------------- | ----------------------- | ------------------------------------------------------- |
+| **Web Framework**  | Flask                           | Lightweight, Python-native, easy to learn     | Django                  | Overkill for this scale; more boilerplate               |
+| **Database**       | SQLite (dev) / Cloud SQL (prod) | Managed service reduces ops burden            | Self-managed PostgreSQL | GCP integration, automated backups, IAM                 |
+| **Frontend**       | HTML/CSS/Vanilla JS             | Simple, no build step required                | React/Vue               | Adds complexity for CRUD operations                     |
+| **Risk Algorithm** | Rule-based heuristic            | Interpretable, clinical thresholds validated  | ML-first                | Can't train without real data; rules are starting point |
+| **Auth**           | Session-based                   | Simple for MVP; sufficient for clinic size    | OAuth2/OIDC             | Would add complexity without immediate benefit          |
+| **Deployment**     | Cloud Run                       | Serverless, managed, cost-effective           | Compute Engine VM       | More operational overhead                               |
+| **Storage**        | Cloud Storage + SQL             | Separation of concerns (files vs. relational) | Just Cloud SQL          | Better scalability; cheaper for large files             |
 
 ---
 
 ## Part 6: Lessons Learned
 
 ### From Course Content
+
 1. **Assignment 2 (Flask)** - Web framework patterns directly applicable; routing, templating, form handling
 2. **Assignment 4 (Cloud)** - Service accounts, IAM, managed databases are production essentials
 3. **Module 6 (Storage)** - Object storage important for unstructured data (CSV files, eventually images)
@@ -297,6 +328,7 @@ Cloud Run OR Local Flask
 5. **Module 9 (ML)** - ML is powerful but requires good data; rule-based systems are starting points
 
 ### From Implementation
+
 1. **Database schema matters:** Good design at start saves refactoring later
 2. **Separation of concerns:** Keeping UI, API, and business logic separate enables testing
 3. **Documentation is critical:** Clear README/architecture plans help deployment
@@ -309,16 +341,16 @@ Cloud Run OR Local Flask
 
 This project synthesizes the entire HHA 504 curriculum:
 
-| Module | Application |
-|--------|-------------|
-| **Module 1-2** | Foundation concepts (cloud computing, healthcare IT) |
-| **Assignment 2 + Module X** | Flask web app for patient management |
-| **Assignment 3** | Cloud Functions architecture patterns |
-| **Assignment 4** | Service accounts, IAM, managed databases |
-| **Module 5** | Cloud Run for serverless deployment |
-| **Module 6** | Cloud Storage for file uploads |
-| **Module 7-8** | Database design, SQL queries |
-| **Module 9** | ML/Vertex AI integration for risk prediction |
+| Module                            | Application                                          |
+| --------------------------------- | ---------------------------------------------------- |
+| **Module 1-2**              | Foundation concepts (cloud computing, healthcare IT) |
+| **Assignment 2 + Module X** | Flask web app for patient management                 |
+| **Assignment 3**            | Cloud Functions architecture patterns                |
+| **Assignment 4**            | Service accounts, IAM, managed databases             |
+| **Module 5**                | Cloud Run for serverless deployment                  |
+| **Module 6**                | Cloud Storage for file uploads                       |
+| **Module 7-8**              | Database design, SQL queries                         |
+| **Module 9**                | ML/Vertex AI integration for risk prediction         |
 
 **Integration:** Single system uses concepts from every module, showing how healthcare cloud solutions bring together compute, storage, databases, and analytics.
 
@@ -327,6 +359,7 @@ This project synthesizes the entire HHA 504 curriculum:
 ## Part 8: Key Metrics & Success Criteria
 
 ### Implemented (MVP)
+
 - ✅ Patient registration (100%)
 - ✅ Vital signs ingestion (CSV uploads)
 - ✅ Risk scoring algorithm
@@ -338,11 +371,13 @@ This project synthesizes the entire HHA 504 curriculum:
 - ✅ Security best practices documented
 
 ### Partially Implemented
+
 - 🟡 Cloud integration (architecture designed, not deployed)
 - 🟡 ML integration (framework in place, rule-based only)
 - 🟡 Wearable data (CSV only, not real-time APIs)
 
 ### Not Implemented (Future)
+
 - ❌ Real production GCP deployment
 - ❌ HIPAA audit logging
 - ❌ Actual ML models
@@ -357,6 +392,7 @@ This project synthesizes the entire HHA 504 curriculum:
 This Remote Patient Triage System demonstrates a realistic, production-capable architecture for healthcare cloud applications. While the prototype uses simplified components (SQLite instead of Cloud SQL, rule-based risk scoring instead of ML), the architecture and design patterns scale to production.
 
 **Key Achievements:**
+
 1. ✅ Healthcare use case with real clinical value
 2. ✅ Integrated multiple course concepts into cohesive system
 3. ✅ Scalable architecture with clear production path
@@ -364,13 +400,14 @@ This Remote Patient Triage System demonstrates a realistic, production-capable a
 5. ✅ Comprehensive documentation for deployment
 
 **Recommendations for Instructor:**
+
 - This project would benefit from 1-2 week extension to deploy to actual GCP project
 - Cloud SQL Proxy integration would demonstrate production patterns
 - Training a basic ML model on sample data would show Vertex AI workflow
 
 ---
 
-**Project Status:** Complete MVP ✅  
-**Production Readiness:** 60% (architecture and design complete; implementation would require GCP account)  
-**Code Quality:** Production-ready patterns, educational comments included  
+**Project Status:** Complete MVP ✅
+**Production Readiness:** 60% (architecture and design complete; implementation would require GCP account)
+**Code Quality:** Production-ready patterns, educational comments included
 **Documentation:** Comprehensive (README + architecture + use case + reflection)
