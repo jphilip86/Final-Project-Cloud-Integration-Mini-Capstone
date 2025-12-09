@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinician Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        header h1 {
+            font-size: 24px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .btn-primary {
+            background: #3498db;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+        
+        .patients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .patient-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid #3498db;
+        }
+        
+        .patient-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .patient-card.risk-high {
+            border-left-color: #e74c3c;
+        }
+        
+        .patient-card.risk-medium {
+            border-left-color: #f39c12;
+        }
+        
+        .patient-card.risk-low {
+            border-left-color: #27ae60;
+        }
+        
+        .patient-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .patient-email {
+            color: #7f8c8d;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+        
+        .risk-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        
+        .risk-high .risk-badge {
+            background: #fadbd8;
+            color: #c0392b;
+        }
+        
+        .risk-medium .risk-badge {
+            background: #fdebd0;
+            color: #d68910;
+        }
+        
+        .risk-low .risk-badge {
+            background: #d5f4e6;
+            color: #196f3d;
+        }
+        
+        .risk-score {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+        
+        .no-patients {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 8px;
+            color: #7f8c8d;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🏥 Patient Triage Dashboard</h1>
+        <div class="user-info">
+            <span>Welcome, {{ username }}</span>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="header-section">
+            <h2>Patient Overview</h2>
+            <a href="{{ url_for('register_patient') }}" class="btn-primary">+ Register Patient</a>
+        </div>
+        
+        {% if patients %}
+        <div class="stats">
+            {% set high_risk = patients|selectattr('risk_level', 'equalto', 'HIGH')|list %}
+            {% set medium_risk = patients|selectattr('risk_level', 'equalto', 'MEDIUM')|list %}
+            <div class="stat-card">
+                <div class="stat-number">{{ patients|length }}</div>
+                <div class="stat-label">Total Patients</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" style="color: #e74c3c;">{{ high_risk|length }}</div>
+                <div class="stat-label">High Risk</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" style="color: #f39c12;">{{ medium_risk|length }}</div>
+                <div class="stat-label">Medium Risk</div>
+            </div>
+        </div>
+        
+        <div class="patients-grid">
+            {% for patient in patients %}
+            <a href="{{ url_for('patient_detail', patient_id=patient.id) }}" style="text-decoration: none; color: inherit;">
+                <div class="patient-card risk-{{ patient.risk_level|lower }}">
+                    <div class="patient-name">{{ patient.name }}</div>
+                    <div class="patient-email">{{ patient.email or 'No email' }}</div>
+                    <div>
+                        <span class="risk-badge">{{ patient.risk_level }}</span>
+                    </div>
+                    <div class="risk-score">
+                        Risk Score: <strong>{{ patient.risk_score }}/1.0</strong>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-patients">
+            <p>No patients registered yet.</p>
+            <a href="{{ url_for('register_patient') }}" class="btn-primary" style="margin-top: 20px; display: inline-block;">Register First Patient</a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
