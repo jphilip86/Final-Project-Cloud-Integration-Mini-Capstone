@@ -1,5 +1,7 @@
 # Remote Patient Triage & Monitoring System - Prototype w/ help from LLM
 
+### Had issues in Google Cloud while trying to run app.py through SSH  ( please refer  screen shots folder)
+
 A Flask-based prototype demonstrating cloud integration for healthcare patient management. This application showcases how multiple cloud services (databases, storage, compute, and AI) work together to build a scalable healthcare solution.
 
 ## Features
@@ -98,8 +100,8 @@ Production: Replace with Cloud SQL + Google Cloud Storage + Vertex AI
 
 **Clinician Login:**
 
-- **Username:** `clinician`
-- **Password:** `password123`
+- **Username:** `doctor`
+- **Password:** `demo123`
 
 ## Usage Guide
 

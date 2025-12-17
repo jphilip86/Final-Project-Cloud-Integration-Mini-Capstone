@@ -147,3 +147,7 @@ Urban Health Network operates 3 clinics serving 5,000 active patients with fragm
 - Clinic reduced response time: 2 days (manual) → 10 minutes (automated)
 - Cost: $3/month per patient vs. $15/month for manual management
 - 100% HIPAA compliance with complete audit trail
+
+### References
+
+- Maré IA, Kramer B, Hazelhurst S, Nhlapho MD, Zent R, Harris PA, Klipin M. Electronic Data Capture System (REDCap) for Health Care Research and Training in a Resource-Constrained Environment: Technology Adoption Case Study. JMIR Med Inform. 2022 Aug 30;10(8):e33402. doi: 10.2196/33402. PMID: 36040763; PMCID: PMC9472062.

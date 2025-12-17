@@ -1,5 +1,7 @@
 # Reflection: Remote Patient Triage System Design & Implementation
 
+### (rephrased and aided by LLM - Claude/ Perplexity)
+
 ## Executive Summary
 
 This final project successfully designed and prototyped a scalable, cloud-integrated healthcare application that demonstrates integration of multiple Google Cloud Platform services. The Remote Patient Triage & Monitoring System addresses a real clinical need while showcasing concepts from across the HHA 504 curriculum.
@@ -16,7 +18,7 @@ This final project successfully designed and prototyped a scalable, cloud-integr
 - **Why:** The use of Cloud SQL, Cloud Storage, and Cloud Run directly maps to prior course assignments and represents realistic production patterns
 - **Evidence:**
   - Clear service selection rationale in architecture plan
-  - Each service maps to specific course modules (Assignment 4 → Managed Services, Module 6 → Storage, etc.)
+  - Each service maps to specific course modules
   - Scalable design that can grow from MVP to production without major restructuring
 
 #### Flask Web Application & Data Model
@@ -169,7 +171,7 @@ Cloud Run OR Local Flask
 
 **Why Chosen:**
 
--  Simplicity for prototype phase
+- Simplicity for prototype phase
 - Easier to test locally
 - Single codebase to maintain
 - Sufficient for MVP patient volumes
@@ -346,7 +348,7 @@ This project synthesizes the entire HHA 504 curriculum:
 | **Module 1-2**              | Foundation concepts (cloud computing, healthcare IT) |
 | **Assignment 2 + Module X** | Flask web app for patient management                 |
 | **Assignment 3**            | Cloud Functions architecture patterns                |
-| **Assignment 4**            | Service accounts, IAM, managed databases             |
+| **Assignment 4**            | Managed databases                                    |
 | **Module 5**                | Cloud Run for serverless deployment                  |
 | **Module 6**                | Cloud Storage for file uploads                       |
 | **Module 7-8**              | Database design, SQL queries                         |
